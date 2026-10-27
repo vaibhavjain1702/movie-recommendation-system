@@ -1,3 +1,7 @@
+__pycache__/
 .DS_Store
 .env
+.ipynb_checkpoints/
+.qodo/
+.vscode/
 node_modules/
