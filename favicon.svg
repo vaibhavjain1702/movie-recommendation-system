@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+    <!-- Film strip background -->
+    <rect x="5" y="10" width="90" height="60" rx="5" ry="5" fill="#032541" stroke="#01b4e4" stroke-width="2" />
+    
+    <!-- Film holes -->
+    <circle cx="15" cy="20" r="3" fill="#f5c518" />
+    <circle cx="15" cy="40" r="3" fill="#f5c518" />
+    <circle cx="15" cy="60" r="3" fill="#f5c518" />
+    
+    <circle cx="85" cy="20" r="3" fill="#f5c518" />
+    <circle cx="85" cy="40" r="3" fill="#f5c518" />
+    <circle cx="85" cy="60" r="3" fill="#f5c518" />
+    
+    <!-- M shape -->
+    <path d="M25,60 L25,20 L40,40 L50,20 L60,40 L75,20 L75,60" 
+          fill="none" 
+          stroke="#01b4e4" 
+          stroke-width="6" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+          
+    <path d="M25,60 L25,20 L40,40 L50,20 L60,40 L75,20 L75,60" 
+          fill="none" 
+          stroke="#f5c518" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+</svg>

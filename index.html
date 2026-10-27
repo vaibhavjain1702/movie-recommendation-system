@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <div class="logo-container">
+                    <svg class="logo-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Film strip background -->
+                        <rect x="5" y="10" width="90" height="60" rx="5" ry="5" fill="#032541" stroke="#01b4e4" stroke-width="2" />
+                        
+                        <!-- Film holes -->
+                        <circle cx="15" cy="20" r="3" fill="#f5c518" />
+                        <circle cx="15" cy="40" r="3" fill="#f5c518" />
+                        <circle cx="15" cy="60" r="3" fill="#f5c518" />
+                        
+                        <circle cx="85" cy="20" r="3" fill="#f5c518" />
+                        <circle cx="85" cy="40" r="3" fill="#f5c518" />
+                        <circle cx="85" cy="60" r="3" fill="#f5c518" />
+                        
+                        <!-- M shape -->
+                        <path d="M25,60 L25,20 L40,40 L50,20 L60,40 L75,20 L75,60" 
+                              fill="none" 
+                              stroke="#01b4e4" 
+                              stroke-width="6" 
+                              stroke-linecap="round" 
+                              stroke-linejoin="round" />
+                              
+                        <path d="M25,60 L25,20 L40,40 L50,20 L60,40 L75,20 L75,60" 
+                              fill="none" 
+                              stroke="#f5c518" 
+                              stroke-width="2" 
+                              stroke-linecap="round" 
+                              stroke-linejoin="round" />
+                    </svg>
+                    <h1>Movie Recommendations</h1>
+                </div>
+            </a>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search for movies...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="user-actions">
+                <button id="show-favorites"><i class="fas fa-heart"></i> My Favorites</button>
+                <button id="login-signup-btn" class="login-btn"><i class="fas fa-user"></i> Login / Signup</button>
+                <div id="user-profile" class="user-profile hidden">
+                    <span id="username-display">User</span>
+                    <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="categories-section">
+        <div class="container">
+            <h2>Categories</h2>
+            <div class="categories">
+                <button class="category-btn active" data-category="popular">Popular</button>
+                <button class="category-btn" data-category="top_rated">Top Rated</button>
+                <button class="category-btn" data-category="now_playing">Now Playing</button>
+                <button class="category-btn" data-category="upcoming">Upcoming</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="filters-section">
+        <div class="container">
+            <h2>Filters</h2>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="genre-filter">Genre:</label>
+                    <select id="genre-filter">
+                        <option value="0">All Genres</option>
+                        <!-- Genres will be loaded dynamically -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="rating-filter">Minimum Rating:</label>
+                    <select id="rating-filter">
+                        <option value="0">Any Rating</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                        <option value="7">7+</option>
+                        <option value="8">8+</option>
+                        <option value="9">9+</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="language-filter">Language:</label>
+                    <select id="language-filter">
+                        <option value="">All Languages</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ko">Korean</option>
+                        <option value="zh">Chinese</option>
+                        <option value="hi">Hindi</option>
+                        <option value="ru">Russian</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="year-filter">Release Year:</label>
+                    <select id="year-filter">
+                        <option value="">All Years</option>
+                        <!-- Years will be dynamically generated -->
+                    </select>
+                </div>
+                <button id="apply-filters">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="movies-section">
+        <div class="container">
+            <h2 id="section-title">Popular Movies</h2>
+            <div id="movies-container" class="movies-grid">
+                <!-- Movies will be dynamically added here -->
+                <div class="loader"></div>
+            </div>
+            <div class="pagination">
+                <button id="prev-page" disabled>Previous</button>
+                <span id="current-page">Page 1</span>
+                <button id="next-page">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="movie-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-movie-details">
+                <!-- Movie details will be dynamically added here -->
+                <div class="loader"></div>
+            </div>
+            <div class="movie-actions">
+                <button id="watch-trailer" class="action-btn"><i class="fas fa-play"></i> Watch Trailer</button>
+                <button id="add-to-favorites" class="action-btn"><i class="far fa-heart"></i> Add to Favorites</button>
+            </div>
+            <div id="trailer-container" class="hidden">
+                <!-- Trailer will be embedded here -->
+            </div>
+            <div class="reviews-section">
+                <h3>Reviews</h3>
+                <div id="reviews-container">
+                    <!-- Reviews will be loaded here -->
+                </div>
+                <div class="add-review">
+                    <h4>Add Your Review</h4>
+                    <div class="rating-input">
+                        <span>Your Rating:</span>
+                        <div class="star-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <textarea id="review-text" placeholder="Write your review here..."></textarea>
+                    <button id="submit-review">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Favorites Modal -->
+    <div id="favorites-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-favorites">&times;</span>
+            <h2>My Favorite Movies</h2>
+            <div id="favorites-container" class="movies-grid">
+                <!-- Favorite movies will be displayed here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login/Signup Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content auth-content">
+            <span class="close-auth">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Signup</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form">
+                <h2>Login to Your Account</h2>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button id="login-submit" class="auth-submit">Login</button>
+                <p class="auth-message" id="login-message"></p>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signup-form" class="auth-form hidden">
+                <h2>Create an Account</h2>
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Choose a password">
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" placeholder="Confirm your password">
+                </div>
+                <button id="signup-submit" class="auth-submit">Sign Up</button>
+                <p class="auth-message" id="signup-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Movie Recommendation System</p>
+            <p class="tmdb-attribution">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+            <div class="footer-actions">
+                <button id="set-api-key" class="footer-btn">Set API Key</button>
+                <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="TMDB Logo" class="tmdb-logo">
+            </div>
+        </div>
+    </footer>
+    
+    <!-- API Key Modal -->
+    <div id="api-key-modal" class="modal">
+        <div class="modal-content api-key-modal-content">
+            <span class="close close-api-key">&times;</span>
+            <h2>Set TMDB API Key</h2>
+            <p>Enter your TMDB API key to enable full functionality. You can get a free API key by creating an account at <a href="https://www.themoviedb.org/signup" target="_blank">themoviedb.org</a>.</p>
+            <div class="api-key-form">
+                <input type="text" id="api-key-input" placeholder="Enter your TMDB API key">
+                <button id="save-api-key">Save API Key</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
